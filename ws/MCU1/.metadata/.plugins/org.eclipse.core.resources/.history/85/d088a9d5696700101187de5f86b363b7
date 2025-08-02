@@ -1,0 +1,43 @@
+#include "stm32f4xx.h"
+#include <stdint.h>
+#include <stdio.h>
+
+// Crude delay for debouncing (not cycle-accurate)
+void delay(volatile uint32_t delay_count) {
+    while (delay_count--) {
+        __asm__("nop");
+    }
+}
+
+int main(void)
+{
+    // Enable GPIOA clock (for PA0, where user button is usually connected)
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+
+    // Configure PA0 as input (00)
+    GPIOA->MODER &= ~(0x3U << (0 * 2));  // Clear mode bits for PA0
+
+    // Optionally configure as pull-down or pull-up
+    GPIOA->PUPDR &= ~(0x3U << (0 * 2));  // Clear PUPDR for PA0
+    GPIOA->PUPDR |=  (0x2U << (0 * 2));  // Pull-down mode
+
+    printf("Button Press Counter Initialized\n");
+
+    uint32_t press_count = 0;
+    uint8_t last_state = 0;
+
+    while (1)
+    {
+        // Read current button state (1 = pressed, assuming active-high)
+        uint8_t current_state = (GPIOA->IDR & GPIO_IDR_ID0) ? 1 : 0;
+
+        // Detect rising edge (low → high)
+        if (current_state && !last_state) {
+            press_count++;
+            printf("Button pressed %lu times\n", press_count);
+            delay(100000); // Debounce delay
+        }
+
+        last_state = current_state;
+    }
+}

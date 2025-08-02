@@ -1,0 +1,45 @@
+#include <stdint.h>
+#include <stdio.h>
+#include "stm32f4xx.h"  // Adjust to your actual MCU series if needed
+
+void delay(volatile uint32_t d)
+{
+    while (d--);  // Crude delay (replace with HAL_Delay if using HAL)
+}
+
+int main(void)
+{
+    // Enable clock for GPIOC (for PC13 button)
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+
+    // Set PC13 as input (00)
+    GPIOC->MODER &= ~(0x3 << (13 * 2));
+
+    // Enable pull-up on PC13 (optional, most Nucleo boards already do this via circuit)
+    GPIOC->PUPDR &= ~(0x3 << (13 * 2));
+    GPIOC->PUPDR |=  (0x1 << (13 * 2));  // 01 = Pull-up
+
+    int count = 0;
+    int buttonPressed = 0;
+
+    printf("Ready. Press the button to increment.\n");
+
+    for (;;)
+    {
+        // Button is active-low, pressed = 0
+        if ((GPIOC->IDR & (1 << 13)) == 0)
+        {
+            if (!buttonPressed) // Rising edge detection
+            {
+                buttonPressed = 1;
+                count++;
+                printf("Button Pressed! Count: %d\n", count);
+                delay(1000000); // Debounce delay
+            }
+        }
+        else
+        {
+            buttonPressed = 0; // Button released
+        }
+    }
+}

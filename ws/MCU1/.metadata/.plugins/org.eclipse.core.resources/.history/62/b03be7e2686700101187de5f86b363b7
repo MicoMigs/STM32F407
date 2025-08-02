@@ -1,0 +1,41 @@
+#include <stdint.h>
+#include <stdio.h>
+#include "stm32f4xx.h"  // Adjust based on your STM32 family
+
+void delay(volatile uint32_t d)
+{
+    while (d--);  // Crude blocking delay
+}
+
+int main(void)
+{
+    // Enable GPIOC clock (for PC13)
+    RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+
+    // Set PC13 as input (MODER13 = 00)
+    GPIOC->MODER &= ~(0x3 << (13 * 2));
+
+    // Optional: enable pull-up resistor on PC13 (PUPDR13 = 01)
+    GPIOC->PUPDR &= ~(0x3 << (13 * 2));
+    GPIOC->PUPDR |=  (0x1 << (13 * 2));
+
+    printf("Ready. Press and release the button to count.\n");
+
+    int count = 0;
+    int previous_state = 1; // 1 = not pressed, 0 = pressed
+
+    for (;;)
+    {
+        int current_state = (GPIOC->IDR & (1 << 13)) ? 1 : 0;
+
+        // Detect rising edge: was pressed, now released
+        if (previous_state == 0 && current_state == 1)
+        {
+            count++;
+            printf("Button Released! Count: %d\n", count);
+        }
+
+        previous_state = current_state;
+        delay(100000);  // Debounce + loop delay
+    }
+}

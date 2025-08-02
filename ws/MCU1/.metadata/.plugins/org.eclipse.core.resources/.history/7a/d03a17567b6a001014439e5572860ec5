@@ -1,0 +1,23 @@
+/**
+ ******************************************************************************
+ * @file           : main.c
+ * @author         : Mico Santiago
+ * @brief          : How to use the peripheral clock
+ ******************************************************************************
+ *	1. how do you check this is working?
+ *		After debug mode, window > show view > SFRs
+ ******************************************************************************
+ */
+#include <stdint.h>
+
+#define ADC_BASE	0x40012000UL
+#define ADC_CR1     (*(volatile uint32_t*)(ADC_BASE + 0x04))
+#define ADC1_EN		 (1 << 8)
+
+int main(void)
+{
+
+	ADC_CR1 |= ADC1_EN;
+
+	for(;;);
+}
