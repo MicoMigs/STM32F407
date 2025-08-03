@@ -2,7 +2,7 @@
 
 ## Changelog
 
-| Date     | Description                                                   | Directory/Label            |
+| Date     | Description                                                   | File Name                  |
 |----------|---------------------------------------------------------------|----------------------------|
 | 8/2/25   | Intro to Drivers                                              | `stm32f4xx_drivers`        |
 | 8/2/25   | Counter                                                       | `001bCounter`              |
