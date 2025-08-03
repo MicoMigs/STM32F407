@@ -4,7 +4,7 @@
 
 | Date     | Description                                                   | File Name                  |
 |----------|---------------------------------------------------------------|----------------------------|
-| 8/2/25   | **Drivers** ★                                                 | `stm32f4xx_drivers`        |
+| 8/2/25   | ★ **Drivers**                                                | `stm32f4xx_drivers`        |
 | 8/2/25   | Counter                                                       | `001bCounter`              |
 | 8/2/25   | Clock demo using STM32CubeMX                                  | `Clock`                    |
 | 8/2/25   | Same as above but externally                                  | `006HSE_Measurement`       |
