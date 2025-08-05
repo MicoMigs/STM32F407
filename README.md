@@ -1,5 +1,4 @@
 # STM32F4x Series Driver Development: Modular and Reusable Tools
-# STM32F4x Series Driver Development: Modular and Reusable Tools
 
 ## Changelog
 
