@@ -1,0 +1,32 @@
+1. whats the base address of AHB1 BUS peripheral registers?
+	pg.65 - 0x4002 0000
+2. whats the base address of GPIOA registers?
+	0x4002 0000
+3. whats the base address of RCC engine registers of the MCU?
+	0x4002 3800
+4. whats the base address of APB1 peripheral registers?
+	0x4000 0000
+5. whats the base address of flash memory?
+	pg 75. 0x0800 0000
+6. What's the base address of SRAM2?
+	SRAM1 starts from 0x2000 0000
+	SIZE of SRAM1 = X bytes
+	base address of SRAM2 = 0x2000 0000 + X
+	BASE_ADDRESS_OF_SRAM2 = BASE_ADDRESS_OF_SRAM1 + SIZE_OF_SRAM1
+7. whats the base address of adc registers?
+	pg 66. 0x4001 2000
+	
+===========================================================
+
+
+if the instructions are present in between the memory locations 0x0000 0000 to 0x1FFF FFFC then
+the Cortex Processor will fetch the instructions using the ICODE interface.
+
+if the instructions are present outside of 0x0000 0000 to 0x01FFF FFFC then processor fetches the instructions
+over the system bus.
+
+if the data is present in between locations 0x0000 0000 to 0x1FFF FFFF, then processor fetches 
+the data over D-CODE bus interface.
+
+if the data is present outside 0x0000 0000 to 0x1FFF FFFF memory locations then, the data will be fetches
+over the system bus.
