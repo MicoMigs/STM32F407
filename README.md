@@ -4,6 +4,8 @@
 
 | Date       | Update Description                                            | Module/Directory           |
 |------------|---------------------------------------------------------------|----------------------------|
+| 2025-08-05 | GPIO driver API requirements |  `stm32f07xx_gpio_driver.c` |
+| 2025-08-05 | GPIO driver API requirements |  `stm32f07xx_gpio_driver.h` |
 | 2025-08-05 | Comments added |  `stm32f407xx.h` |
 | 2025-08-04 | Clock enable and disable macros added                         | `stm32f407xx.h`            |
 | 2025-08-04 | GPIOx, I2Cx, SPIx, USARTx, SYSCFG peripheral support added    | `stm32f407xx.h`            |

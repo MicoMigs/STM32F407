@@ -1,0 +1,65 @@
+/*
+ * stm32f407xx_gpio_driver.h
+ *
+ *  Created on: Aug 5, 2025
+ *      Author: micom
+ */
+
+#ifndef INC_STM32F407XX_GPIO_DRIVER_H_
+#define INC_STM32F407XX_GPIO_DRIVER_H_
+
+#include "stm32f407xx.h"
+
+
+/*
+ *  This is a Configuration structure for a GPIO pin
+ */
+
+typedef struct
+{
+    uint8_t GPIO_PinNumber;      // 0 to 15
+    uint8_t GPIO_Mode;           // 0: Input, 1: Output, 2: AF, 3: Analog
+    uint8_t GPIO_Speed;          // 0: Low, 1: Medium, 2: Fast, 3: High
+    uint8_t GPIO_PuPdControl;    // 0: No pull, 1: Pull-up, 2: Pull-down
+    uint8_t GPIO_OPType;         // 0: Push-Pull, 1: Open-Drain
+    uint8_t GPIO_AltFunMode;     // 0 to 15 (AF0 to AF15)
+} GPIO_PinConfig_t;
+
+
+
+/*
+ * This is a handle structure for a GPIO pin
+ */
+
+typedef struct
+{
+	GPIO_RegDef_t *pGPIOx; 				/*!< Holds base address of GPIO port */
+	GPIO_PinConfig_t GPIO_PingConfig; 	/*!< Holds GPIO pin config settings*/
+
+
+
+}GPIO_Handle_t;
+
+/*************************************************************
+ * APIs Supported by This Driver
+ * -----------------------------------------------------------
+ * For more information about each API, refer to the function
+ * definitions in the source file.
+ *************************************************************/
+
+void GPIO_Init(void);
+void GPIO_DeInit(void);
+void GPIO_PeriClockControl(void);
+void GPIO_ReadFromInputPin(void);
+void GPIO_ReadFromInputPort(void);
+void GPIO_WriteToOutputPin(void);
+void GPIO_WriteToOutputPort(void);
+void GPIO_TogglePin(void);
+
+
+
+
+
+
+
+#endif /* INC_STM32F407XX_GPIO_DRIVER_H_ */
