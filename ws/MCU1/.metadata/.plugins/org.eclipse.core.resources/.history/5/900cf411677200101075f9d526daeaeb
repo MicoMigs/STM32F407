@@ -1,31 +1,9 @@
-/******************************************************************************
- * @file    stm32f407xx.h
- * @author  mico
- * @date    July 30, 2025
- * @brief   Device Header File for STM32F407xx Microcontroller
+/*
+ * stm32f407xx.h
  *
- * @details
- * This file contains:
- *  - Base addresses of memory regions (FLASH, SRAM, ROM)
- *  - Base addresses of all AHBx and APBx buses
- *  - Peripheral base addresses for all GPIO, SPI, USART, I2C, etc.
- *  - Peripheral register structures (e.g., GPIO_RegDef_t, RCC_RegDef_t)
- *  - Macros for peripheral clock enable/disable operations
- *  - Type definitions for volatile access to peripheral registers
- *
- * Usage:
- *  - Include this file in your STM32F4 firmware projects to interface with
- *    low-level hardware features using direct register access.
- *  - Use the defined macros and structures to control GPIOs, RCC, USART,
- *    SPI, I2C, and other peripherals.
- *
- * Note:
- *  - All peripheral register structures and macros are specific to the
- *    STM32F407xx series and follow the reference manual.
- *  - `__vo` is defined as `volatile` for direct memory access to hardware.
- *
- ******************************************************************************/
-
+ *  Created on: Jul 30, 2025
+ *      Author: mico
+*/
 
 #ifndef INC_STM32F407XX_H_
 #define INC_STM32F407XX_H_
