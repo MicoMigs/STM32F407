@@ -17,12 +17,12 @@
 
 typedef struct
 {
-    uint8_t GPIO_PinNumber;      // 0 to 15
-    uint8_t GPIO_Mode;           // 0: Input, 1: Output, 2: AF, 3: Analog
-    uint8_t GPIO_Speed;          // 0: Low, 1: Medium, 2: Fast, 3: High
-    uint8_t GPIO_PuPdControl;    // 0: No pull, 1: Pull-up, 2: Pull-down
-    uint8_t GPIO_OPType;         // 0: Push-Pull, 1: Open-Drain
-    uint8_t GPIO_AltFunMode;     // 0 to 15 (AF0 to AF15)
+    uint8_t GPIO_PinNumber;      	/*!< possible values from @GPIO_PIN_NUMBERS */
+    uint8_t GPIO_PinMode;           /*!< possible values from @GPIO_PIN_MODES */
+    uint8_t GPIO_PinSpeed;          /*!< possible values from @GPIO_PIN_SPEED */
+    uint8_t GPIO_PinPuPdControl;    /*!< possible values from @GPIO_PIN_PUPD_CONDTROL */
+    uint8_t GPIO_PinOPType;         /*!< possible values from @GPIO_PIN_OP_TYPE */
+    uint8_t GPIO_PinAltFunMode;     /*!< */
 } GPIO_PinConfig_t;
 
 
@@ -34,14 +34,35 @@ typedef struct
 typedef struct
 {
 	GPIO_RegDef_t *pGPIOx; 				/*!< Holds base address of GPIO port */
-	GPIO_PinConfig_t GPIO_PingConfig; 	/*!< Holds GPIO pin config settings*/
+	GPIO_PinConfig_t GPIO_PinConfig; 	/*!< Holds GPIO pin config settings*/
 
 
 
 }GPIO_Handle_t;
 
+/*
+ * @GPIO_PIN_NUMBERS
+ * GPIO pin numbers
+ */
+#define GPIO_PIN_NO_0		0
+#define GPIO_PIN_NO_1		1
+#define GPIO_PIN_NO_2		2
+#define GPIO_PIN_NO_3		3
+#define GPIO_PIN_NO_4		4
+#define GPIO_PIN_NO_5		5
+#define GPIO_PIN_NO_6		6
+#define GPIO_PIN_NO_7		7
+#define GPIO_PIN_NO_8		8
+#define GPIO_PIN_NO_9		9
+#define GPIO_PIN_NO_10		10
+#define GPIO_PIN_NO_11		11
+#define GPIO_PIN_NO_12		12
+#define GPIO_PIN_NO_13		13
+#define GPIO_PIN_NO_14		14
+#define GPIO_PIN_NO_15		15
 
 /*
+ * @GPIO_PIN_MODES
  * GPIO pin possible modes
  */
 #define GPIO_MODE_IN		0
@@ -53,12 +74,14 @@ typedef struct
 #define GPIO_MODE_IT_RFT	6
 
 /*
+ * @GPIO_PIN_OP_TYPE
  * GPIO pin possible output types
  */
 #define GPIO_OP_TYPE_PP		0
 #define GPIO_OP_TYPE_OD		1
 
 /*
+ * @GPIO_PIN_SPEED
  * GPIO pin possible output speeds
  */
 #define GPIO_SPEED_LOW		0
@@ -67,6 +90,7 @@ typedef struct
 #define GPIO_SPEED_HIGH		3
 
 /*
+ * @GPIO_PIN_PUPD_CONDTROL
  * GPIO pin pull up pull down configuration macros
  */
 #define GPIO_NO_PUPD	0

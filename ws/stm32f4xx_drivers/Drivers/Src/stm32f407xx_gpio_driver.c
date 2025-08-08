@@ -107,11 +107,47 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  *********************************************************/
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
+	uint32_t temp=0;
 	//1. Configure mode
-	//2. Config Speed
-	//3. Config pupd settings
-	//4. config optype
-	//5. config alt functionality
+	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
+	{
+		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 *pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
+		pGPIOHandle->pGPIOx->MODER &= ~( 0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); //clearing
+		pGPIOHandle->pGPIOx->MODER |= temp;
+	}else{
+		//this part will code later. ( interrupt mode)
+	}
+	temp = 0;
+
+	//2. Configure Speed
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinSpeed << (2*pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->OSPEEDR &= ~( 0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); //clearing
+	pGPIOHandle->pGPIOx->OSPEEDR |= temp;
+
+	temp=0;
+
+	//3. Configure pupd settings
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPdControl << (2*pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->PUPDR &= ~( 0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); //clearing
+	pGPIOHandle->pGPIOx->PUPDR |= temp;
+
+	temp=0;
+
+	//4. configure optype
+	temp = pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << (pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber);
+	pGPIOHandle->pGPIOx->OTYPER &= ~( 0x1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); //clearing
+	pGPIOHandle->pGPIOx->OTYPER |= temp;
+
+	//5. configure alt functionality
+	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN){
+		//configure the alt function registers
+		uint8_t temp1, temp2;
+
+		temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
+		temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber % 8;
+		pGPIOHandle->pGPIOx->AFR[temp1] &= ~( 0xF << (4 * temp2 ) ); //clearing
+		pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << ( 4 * temp2));
+	}
 }
 
 
@@ -127,7 +163,40 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
  *********************************************************/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
-	return 0;
+	if (pGPIOx == GPIOA)
+		{
+			GPIOA_REG_RESET();
+		}
+		else if (pGPIOx == GPIOB)
+		{
+			GPIOB_REG_RESET();
+		}
+		else if (pGPIOx == GPIOC)
+		{
+			GPIOC_REG_RESET();
+		}
+		else if (pGPIOx == GPIOD)
+		{
+			GPIOD_REG_RESET();
+		}
+		else if (pGPIOx == GPIOE)
+		{
+			GPIOE_REG_RESET();
+		}
+		else if (pGPIOx == GPIOF)
+		{
+			GPIOF_REG_RESET();
+		}
+		else if (pGPIOx == GPIOG)
+		{
+			GPIOG_REG_RESET();
+		}
+		else if (pGPIOx == GPIOH)
+		{
+			GPIOH_REG_RESET();
+		} else {
+			//TODO
+		}
 }
 
 
@@ -142,9 +211,12 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
  *
  * @note        - Reads the corresponding bit from IDR (Input Data Register)
  *********************************************************/
+
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-	return 0;
+	uint8_t value;
+	value = (uint8_t)((pGPIOx->IDR >> PinNumber) & 0x00000001 );
+	return value;
 }
 
 
@@ -158,11 +230,13 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *
  * @note        - Reads entire IDR register at once
  *********************************************************/
+
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
-	return 0;
+	uint16_t value;
+	value = (uint16_t)pGPIOx->IDR;
+	return value;
 }
-
 
 /*********************************************************
  * @fn          - GPIO_WriteToOutputPin
@@ -176,9 +250,17 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  *
  * @note        - Uses the BSRR or ODR register to write output
  *********************************************************/
+
 void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value)
 {
-	return 0;
+	if(Value == GPIO_PIN_SET){
+		// write 1 to the output data register at the bit field corresponding to the pin number
+		pGPIOx->ODR |= ( 1 << PinNumber );
+	} else {
+		// write 0
+		pGPIOx->ODR &= ~( 1 << PinNumber );
+	}
+
 }
 
 
@@ -193,9 +275,10 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Val
  *
  * @note        - Overwrites all 16 bits of the ODR register
  *********************************************************/
+
 void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value)
 {
-	return 0;
+	pGPIOx->ODR = Value;
 }
 
 
@@ -210,9 +293,10 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value)
  *
  * @note        - Reads ODR and flips the bit for the pin
  *********************************************************/
+
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-	return 0;
+	pGPIOx->ODR ^= (1 << PinNumber );
 }
 
 
@@ -228,11 +312,12 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  *
  * @note        - Sets registers in NVIC and possibly SYSCFG for EXTI mapping
  *********************************************************/
+/*
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
 {
 	return 0;
 }
-
+*/
 
 /*********************************************************
  * @fn          - GPIO_IRQHandling
@@ -244,8 +329,9 @@ void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
  *
  * @note        - Clears the EXTI pending register bit for the pin
  *********************************************************/
+/*
 void GPIO_IRQHandling(uint8_t PinNumber)
 {
 	return 0;
 }
-
+*/
