@@ -4,10 +4,11 @@
 
 | Date       | Update Description                                            | Module/Directory           |
 |------------|---------------------------------------------------------------|----------------------------|
-| 2025-08-07 | GPIO driver clk control, init, de-init, data read and write |  `stm32f07xx_gpio_driver.c` |
-| 2025-08-05 | GPIO driver API requirements |  `stm32f07xx_gpio_driver.c` |
-| 2025-08-05 | GPIO driver API requirements |  `stm32f07xx_gpio_driver.h` |
-| 2025-08-05 | Comments added |  `stm32f407xx.h` |
-| 2025-08-04 | Clock enable and disable macros added                         | `stm32f407xx.h`            |
-| 2025-08-04 | GPIOx, I2Cx, SPIx, USARTx, SYSCFG peripheral support added    | `stm32f407xx.h`            |
-| 2025-08-03 | **Drivers:** Framework scaffold for STM32F4x peripherals      | `stm32f4xx_drivers`        |
+| 2025-08-08 | Demo for initializing and toggling a GPIO pin |  `Src\01led_toggle.c` |
+| 2025-08-07 | GPIO driver clk control, init, de-init, data read and write |  `Drivers\Src\stm32f07xx_gpio_driver.c` |
+| 2025-08-05 | GPIO driver API requirements |  `Drivers\Inc\stm32f07xx_gpio_driver.c` |
+| 2025-08-05 | GPIO driver API requirements |  `Drivers\Inc\stm32f07xx_gpio_driver.h` |
+| 2025-08-05 | Comments added |  `Drivers\Inc\stm32f407xx.h` |
+| 2025-08-04 | Clock enable and disable macros added                         | `Drivers\Inc\stm32f407xx.h`            |
+| 2025-08-04 | GPIOx, I2Cx, SPIx, USARTx, SYSCFG peripheral support added    | `Drivers\Inc\stm32f407xx.h`            |
+| 2025-08-03 | **Drivers:** Framework scaffold for STM32F4x peripherals      | `Drivers\Inc\stm32f4xx_drivers`        |
