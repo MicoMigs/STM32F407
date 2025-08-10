@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="true"/>
+	<list key="searchhistory">
+		<item value="gpio_op"/>
+		<item value="GPIO_PIN"/>
+		<item value="pGPIOHandle"/>
+		<item value="GPIO_PinMode"/>
+		<item value="pGPIOx"/>
+		<item value="GPIO_PinConfig"/>
+		<item value="@GPIO_PIN_ALT_FUN_MODE"/>
+		<item value="GPIO_PIN_MODES"/>
+	</list>
+</section>
