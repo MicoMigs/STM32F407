@@ -4,6 +4,7 @@
 
 | Date       | Update Description                                            | Module/Directory           |
 |------------|---------------------------------------------------------------|----------------------------|
+| 2025-08-15 | Added GPIO pin Interrupts Config & demo |  `Src\demo_03_button_interrupt.c` |
 | 2025-08-08 | Demo for initializing and toggling a GPIO pin |  `Src\01led_toggle.c` |
 | 2025-08-07 | GPIO driver clk control, init, de-init, data read and write |  `Drivers\Src\stm32f07xx_gpio_driver.c` |
 | 2025-08-05 | GPIO driver API requirements |  `Drivers\Inc\stm32f07xx_gpio_driver.c` |

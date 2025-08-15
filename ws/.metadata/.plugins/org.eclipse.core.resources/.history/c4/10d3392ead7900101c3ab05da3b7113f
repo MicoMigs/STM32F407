@@ -1,0 +1,49 @@
+#include "stm32f407xx.h"
+
+void EXTI0_IRQHandler(void){
+    GPIO_IRQHandling(GPIO_PIN_NO_0);        // clear EXTI0 pending
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_12);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_13);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_14);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_15);
+}
+
+int main(void){
+    // --- LED outputs on PD12..PD15 ---
+    GPIO_Handle_t GPIO_LED;
+    GPIO_LED.pGPIOx = GPIOD;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinMode       = GPIO_MODE_OUT;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinSpeed      = GPIO_SPEED_LOW;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinOPType     = GPIO_OP_TYPE_PP;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinPuPdControl= GPIO_NO_PUPD;
+
+    GPIO_PeriClockControl(GPIOD, ENABLE);      // enable clock BEFORE init
+    // init four pins by reusing the handle
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15; GPIO_Init(&GPIO_LED);
+
+    // --- Button on PA0 with EXTI0 falling-edge ---
+    GPIO_Handle_t GPIObtn;
+    GPIObtn.pGPIOx = GPIOA;
+    GPIObtn.GPIO_PinConfig.GPIO_PinNumber      = GPIO_PIN_NO_0;   // <-- correct field
+    GPIObtn.GPIO_PinConfig.GPIO_PinMode        = GPIO_MODE_IT_FT; // falling edge
+    GPIObtn.GPIO_PinConfig.GPIO_PinSpeed       = GPIO_SPEED_FAST;
+    GPIObtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;     // pull-up
+
+    GPIO_PeriClockControl(GPIOA, ENABLE);
+    // If your driver needs it, also:
+    // SYSCFG_PCLK_EN();  // enable SYSCFG clock
+    // GPIO_IRQConfigEXTILine(GPIOA, GPIO_PIN_NO_0); // map PA0 -> EXTI0 (driver-specific)
+
+    GPIO_Init(&GPIObtn);
+
+    // NVIC: use EXTI0 for PA0
+    GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI15);
+    GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
+
+    while(1){
+        // sleep/wfi optional
+    }
+}

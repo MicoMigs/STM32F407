@@ -83,3 +83,36 @@ java.io.FileNotFoundException: C:\STM32F407\ws\stm32f4xx_drivers\Debug\stm32f4xx
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-10 16:06:14.131
 !MESSAGE Existing sessions are:
+!SESSION 2025-08-10 16:10:45.531 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-08-10 16:10:54.442
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-08-10 16:10:54.444
+!MESSAGE Log4j2 initialized with config file C:\STM32F407\ws\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-08-10 16:11:02.921
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-08-13 18:19:01.020 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2025-08-13 18:19:08.024
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-08-13 18:19:13.418
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-08-13 18:19:13.421
+!MESSAGE Log4j2 initialized with config file C:\STM32F407\ws\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-08-13 18:19:28.515
+!MESSAGE Started RMI Server, listening on port 41337

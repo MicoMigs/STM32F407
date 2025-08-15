@@ -34,7 +34,48 @@
 
 #define __vo volatile
 
+/************** START: Cortex-M Processor NVIC Register Definitions ***************
+ * NVIC ISERx (Interrupt Set-Enable Registers) are used to enable interrupts in
+ * the Nested Vectored Interrupt Controller (NVIC) of ARM Cortex-Mx processors.
+ *
+ * - Each ISER register is 32 bits wide, controlling enable bits for 32 interrupts.
+ * - NVIC_ISER0 controls IRQs 0–31, NVIC_ISER1 controls IRQs 32–63, and so on.
+ * - Base address for ISER0 is 0xE000E100, with each subsequent register
+ *   offset by 0x04 (4 bytes).
+ *********************************************************************************/
 
+/*
+ * ARM Cortex Mx Processor NVIC ISERx register Addresses
+ */
+#define NVIC_ISER0      ((__vo uint32_t*)0xE000E100)
+#define NVIC_ISER1      ((__vo uint32_t*)0xE000E104)
+#define NVIC_ISER2      ((__vo uint32_t*)0xE000E108)
+#define NVIC_ISER3      ((__vo uint32_t*)0xE000E10C)
+/*
+ * ARM Cortex Mx Processor NVIC ICERx register Addresses
+ */
+#define NVIC_ICER0      ((__vo uint32_t*)0xE000E180)
+#define NVIC_ICER1      ((__vo uint32_t*)0xE000E184)
+#define NVIC_ICER2      ((__vo uint32_t*)0xE000E188)
+#define NVIC_ICER3      ((__vo uint32_t*)0xE000E18C)
+
+/*
+ * ARM Cortex Mx Processor NVIC ICERx register Addresses
+ */
+#define NVIC_ICER0		((__vo uint32_t*)0xE000E180)
+#define NVIC_ICER1      ((__vo uint32_t*)0xE000E184)
+#define NVIC_ICER2      ((__vo uint32_t*)0xE000E188)
+#define NVIC_ICER3      ((__vo uint32_t*)0xE000E18C)
+
+/*
+ * ARM Cortex Mx Processor Priority Register Address Calculation
+ */
+#define NVIC_PR_BASE_ADDR	((__vo uint32_t*)0xE000E400)
+
+/*
+ * ARM Cortex Mx Processor number of priority bits implemented in priority register
+ */
+#define NO_PR_BITS_IMPLEMENTED	4
 /*
  * Memory base addresses
  */
@@ -204,6 +245,30 @@ typedef struct
 
 } RCC_RegDef_t;
 
+/*
+ * Peripheral register definition structure for EXTI
+ */
+typedef struct
+{
+	__vo uint32_t IMR;    /*!< Interrupt mask register,            Address offset: 0x00 */
+	__vo uint32_t EMR;    /*!< Event mask register,                Address offset: 0x04 */
+	__vo uint32_t RTSR;   /*!< Rising trigger selection register,  Address offset: 0x08 */
+	__vo uint32_t FTSR;   /*!< Falling trigger selection register, Address offset: 0x0C */
+	__vo uint32_t SWIER;  /*!< Software interrupt event register,  Address offset: 0x10 */
+	__vo uint32_t PR;     /*!< Pending register (write 1 to clear),Address offset: 0x14 */
+} EXTI_RegDef_t;
+
+
+/* Peripheral register definition structure for SYSCFG */
+typedef struct
+{
+    __vo uint32_t MEMRMP;      /*!< Memory remap register,              Address offset: 0x00 */
+    __vo uint32_t PMC;         /*!< Peripheral mode configuration reg,  Address offset: 0x04 */
+    __vo uint32_t EXTICR[4];   /*!< External interrupt config regs,     Address offset: 0x08-0x14 */
+    uint32_t RESERVED1[2];     /*!< Reserved,                           Reserved: 0x18-0x1C */
+    __vo uint32_t CMPCR;       /*!< Compensation cell control reg,      Address offset: 0x20 */
+} SYSCFG_RegDef_t;
+
 
 
 /*
@@ -222,6 +287,9 @@ typedef struct
 
 #define RCC   	((RCC_RegDef_t*)RCC_BASEADDR)
 
+#define EXTI	((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+#define SYSCFG	((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
@@ -319,6 +387,33 @@ typedef struct
 #define GPIOF_REG_RESET()	do{ (RCC->AHB1RSTR |= (1 << 5)); (RCC->AHB1RSTR &= ~(1<<5)); }while(0)
 #define GPIOG_REG_RESET()	do{ (RCC->AHB1RSTR |= (1 << 6)); (RCC->AHB1RSTR &= ~(1<<6)); }while(0)
 #define GPIOH_REG_RESET()	do{ (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1<<7)); }while(0)
+
+/*
+ * returns port code for given GPIOx base address.
+ * This macro returns a code between 0 to 7 for a given gpio base address (x)
+ */
+#define GPIO_BASEADDR_TO_CODE(x)	((x) == GPIOA) ? 0 :\
+									((x) == GPIOB) ? 1 :\
+									((x) == GPIOC) ? 2 :\
+									((x) == GPIOD) ? 3 :\
+									((x) == GPIOE) ? 4 :\
+									((x) == GPIOF) ? 5 :\
+									((x) == GPIOG) ? 6 :\
+									((x) == GPIOH) ? 7 : 0
+
+/*
+ * IRQ (Interrupt Request) Numbers for EXTI lines
+ */
+#define IRQ_NO_EXTI0     6
+#define IRQ_NO_EXTI1     7
+#define IRQ_NO_EXTI2     8
+#define IRQ_NO_EXTI3     9
+#define IRQ_NO_EXTI4     10
+#define IRQ_NO_EXTI9_5   23
+#define IRQ_NO_EXTI15_10 40
+
+#define NVIC_IRQ_PRI0	0
+#define NVIC_IRQ_PRI15	15
 
 /*
  * Generic Macros

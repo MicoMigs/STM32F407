@@ -1,0 +1,48 @@
+#include "stm32f407xx.h"
+
+// EXTI0 ISR: clear pending and toggle LEDs
+void EXTI0_IRQHandler(void){
+    GPIO_IRQHandling(GPIO_PIN_NO_0);              // clear EXTI0 pending
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_12);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_13);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_14);
+    GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_15);
+}
+
+int main(void){
+    // --- LEDs on PD12..PD15 ---
+    GPIO_Handle_t GPIO_LED;
+    GPIO_LED.pGPIOx = GPIOD;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinMode        = GPIO_MODE_OUT;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinSpeed       = GPIO_SPEED_LOW;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinOPType      = GPIO_OP_TYPE_PP;
+    GPIO_LED.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+
+    GPIO_PeriClockControl(GPIOD, ENABLE);        // enable clock BEFORE init
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14; GPIO_Init(&GPIO_LED);
+    GPIO_LED.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15; GPIO_Init(&GPIO_LED);
+
+    // --- Button on PA0 → EXTI0 (rising edge) ---
+    GPIO_Handle_t GPIObtn;
+    GPIObtn.pGPIOx = GPIOA;
+    GPIObtn.GPIO_PinConfig.GPIO_PinNumber      = GPIO_PIN_NO_0;    // <-- correct field
+    GPIObtn.GPIO_PinConfig.GPIO_PinMode        = GPIO_MODE_IT_RT;  // rising edge (Discovery PA0 is active-high)
+    GPIObtn.GPIO_PinConfig.GPIO_PinSpeed       = GPIO_SPEED_FAST;
+    GPIObtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;     // external pulldown present on Discovery
+
+    GPIO_PeriClockControl(GPIOA, ENABLE);
+
+    // If your driver doesn't do this inside GPIO_Init, also enable SYSCFG + map PA0->EXTI0:
+    // SYSCFG_PCLK_EN();
+    // GPIO_ConfigEXTILine(GPIOA, GPIO_PIN_NO_0); // driver-specific helper if you have one
+
+    GPIO_Init(&GPIObtn);
+
+    // NVIC: use EXTI0 for PA0
+    GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI15);
+    GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
+
+    while(1);
+}
