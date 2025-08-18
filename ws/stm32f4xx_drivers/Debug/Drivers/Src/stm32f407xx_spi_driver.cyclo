@@ -1,0 +1,7 @@
+../Drivers/Src/stm32f407xx_spi_driver.c:17:6:SPI_PeriClockControl	8
+../Drivers/Src/stm32f407xx_spi_driver.c:59:6:SPI_Init	4
+../Drivers/Src/stm32f407xx_spi_driver.c:112:6:SPI_DeInit	4
+../Drivers/Src/stm32f407xx_spi_driver.c:132:9:SPI_GetFlagStatus	2
+../Drivers/Src/stm32f407xx_spi_driver.c:155:6:SPI_SendData	4
+../Drivers/Src/stm32f407xx_spi_driver.c:209:6:SPI_PeripheralControl	2
+../Drivers/Src/stm32f407xx_spi_driver.c:230:6:SPI_SSIConfig	2

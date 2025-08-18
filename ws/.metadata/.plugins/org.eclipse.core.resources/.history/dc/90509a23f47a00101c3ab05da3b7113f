@@ -1,0 +1,11 @@
+#include "stm32f407xx.h"
+
+int main(void)
+{
+    // If you want to prove link/use of the SPI driver:
+    // SPI_PeriClockControl(SPI1, ENABLE);  // requires RCC defs in stm32f407xx.h
+
+    while (1) {
+        __asm volatile ("nop");
+    }
+}

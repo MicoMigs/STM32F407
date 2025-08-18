@@ -22,7 +22,7 @@ typedef struct
     uint8_t GPIO_PinSpeed;          /*!< possible values from @GPIO_PIN_SPEED */
     uint8_t GPIO_PinPuPdControl;    /*!< possible values from @GPIO_PIN_PUPD_CONDTROL */
     uint8_t GPIO_PinOPType;         /*!< possible values from @GPIO_PIN_OP_TYPE */
-    uint8_t GPIO_PinAltFunMode;     /*!< */
+    uint8_t GPIO_PinAltFunMode;     /*!< possible values from @*/
 } GPIO_PinConfig_t;
 
 
@@ -35,9 +35,6 @@ typedef struct
 {
 	GPIO_RegDef_t *pGPIOx; 				/*!< Holds base address of GPIO port */
 	GPIO_PinConfig_t GPIO_PinConfig; 	/*!< Holds GPIO pin config settings*/
-
-
-
 }GPIO_Handle_t;
 
 /*
@@ -93,7 +90,7 @@ typedef struct
  * @GPIO_PIN_PUPD_CONDTROL
  * GPIO pin pull up pull down configuration macros
  */
-#define GPIO_NO_PUPD	0
+#define GPIO_NO_PUPD		0
 #define GPIO_PIN_PU			1
 #define GPIO_PIN_PD			2
 
@@ -106,7 +103,7 @@ typedef struct
 /*
  * Peripheral Clock Setup
  */
-void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi);
 
 /*
  * Init and De-Init
@@ -126,7 +123,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 /*
  * IRQ Configuration and ISR handling
  */
-void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnOrDi);
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint8_t IRQPriority);
 void GPIO_IRQHandling(uint8_t PinNumber);
 

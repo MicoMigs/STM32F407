@@ -59,13 +59,6 @@
 #define NVIC_ICER2      ((__vo uint32_t*)0xE000E188)
 #define NVIC_ICER3      ((__vo uint32_t*)0xE000E18C)
 
-/*
- * ARM Cortex Mx Processor NVIC ICERx register Addresses
- */
-#define NVIC_ICER0		((__vo uint32_t*)0xE000E180)
-#define NVIC_ICER1      ((__vo uint32_t*)0xE000E184)
-#define NVIC_ICER2      ((__vo uint32_t*)0xE000E188)
-#define NVIC_ICER3      ((__vo uint32_t*)0xE000E18C)
 
 /*
  * ARM Cortex Mx Processor Priority Register Address Calculation
@@ -108,7 +101,6 @@
 #define GPIOI_BASEADDR          (AHB1_PERIPH_BASEADDR + 0x2000)
 #define GPIOJ_BASEADDR          (AHB1_PERIPH_BASEADDR + 0x2400)
 #define GPIOK_BASEADDR          (AHB1_PERIPH_BASEADDR + 0x2800)
-#define RCC_BASEADDR   			(AHB1_PERIPH_BASEADDR +	0x3800)
 
 #define CRC_BASEADDR            (AHB1_PERIPH_BASEADDR + 0x3000)
 #define RCC_BASEADDR            (AHB1_PERIPH_BASEADDR + 0x3800)
@@ -145,8 +137,10 @@
 #define WWDG_BASEADDR           (APB1_PERIPH_BASEADDR + 0x2C00)
 #define IWDG_BASEADDR           (APB1_PERIPH_BASEADDR + 0x3000)
 #define I2S2ext_BASEADDR        (APB1_PERIPH_BASEADDR + 0x3400)
+
 #define SPI2_BASEADDR           (APB1_PERIPH_BASEADDR + 0x3800)
 #define SPI3_BASEADDR           (APB1_PERIPH_BASEADDR + 0x3C00)
+
 #define I2S3ext_BASEADDR        (APB1_PERIPH_BASEADDR + 0x4000)
 #define USART2_BASEADDR         (APB1_PERIPH_BASEADDR + 0x4400)
 #define USART3_BASEADDR         (APB1_PERIPH_BASEADDR + 0x4800)
@@ -258,6 +252,22 @@ typedef struct
 	__vo uint32_t PR;     /*!< Pending register (write 1 to clear),Address offset: 0x14 */
 } EXTI_RegDef_t;
 
+/*
+ * Peripheral register definition structure for SPI
+ */
+typedef struct
+{
+	__vo uint32_t CR1;      /*!< SPI control register 1 (mode, CPOL/CPHA, BR, DFF, SSM/SSI, RXONLY, BIDIMODE/OE, SPE)  	Address offset: 0x00 */
+	__vo uint32_t CR2;      /*!< SPI control register 2 (RXNE/TXE IE, ERR IE, SSOE, FRF, TXDMAEN, RXDMAEN)				Address offset: 0x04 */
+	__vo uint32_t SR;       /*!< SPI status register (RXNE, TXE, CHSIDE, UDR, CRCERR, MODF, OVR, BSY, FRE)              Address offset: 0x08 */
+	__vo uint32_t DR;       /*!< SPI data register (read RX data / write TX data)                                     	Address offset: 0x0C */
+	__vo uint32_t CRCPR;    /*!< SPI CRC polynomial register                                                        	Address offset: 0x10 */
+	__vo uint32_t RXCRCR;   /*!< SPI RX CRC register                                                                    Address offset: 0x14 */
+	__vo uint32_t TXCRCR;   /*!< SPI TX CRC register                                                                    Address offset: 0x18 */
+	__vo uint32_t I2SCFGR;  /*!< I2S configuration register (enables/controls I2S mode on this peripheral)  			Address offset: 0x1C */
+	__vo uint32_t I2SPR;    /*!< I2S prescaler register                                                         		Address offset: 0x20 */
+} SPI_RegDef_t;
+
 
 /* Peripheral register definition structure for SYSCFG */
 typedef struct
@@ -268,8 +278,6 @@ typedef struct
     uint32_t RESERVED1[2];     /*!< Reserved,                           Reserved: 0x18-0x1C */
     __vo uint32_t CMPCR;       /*!< Compensation cell control reg,      Address offset: 0x20 */
 } SYSCFG_RegDef_t;
-
-
 
 /*
  * peripheral definitions (peripheral base addresses type-casted to xxx_RegDef_t)
@@ -290,6 +298,12 @@ typedef struct
 #define EXTI	((EXTI_RegDef_t*)EXTI_BASEADDR)
 
 #define SYSCFG	((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
+
+#define SPI1				((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2				((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3				((SPI_RegDef_t*)SPI3_BASEADDR)
+#define SPI4				((SPI_RegDef_t*)SPI4_BASEADDR)
+
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
@@ -389,6 +403,14 @@ typedef struct
 #define GPIOH_REG_RESET()	do{ (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1<<7)); }while(0)
 
 /*
+ * Macros to reset SPIx peripherals
+ */
+#define SPI1_REG_RESET()    do{ (RCC->APB2RSTR |=  (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12)); }while(0)
+#define SPI2_REG_RESET()    do{ (RCC->APB1RSTR |=  (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14)); }while(0)
+#define SPI3_REG_RESET()    do{ (RCC->APB1RSTR |=  (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15)); }while(0)
+#define SPI4_REG_RESET()    do{ (RCC->APB2RSTR |=  (1 << 13)); (RCC->APB2RSTR &= ~(1 << 13)); }while(0)
+
+/*
  * returns port code for given GPIOx base address.
  * This macro returns a code between 0 to 7 for a given gpio base address (x)
  */
@@ -424,7 +446,51 @@ typedef struct
 #define RESET 			DISABLE
 #define	GPIO_PIN_SET	SET
 #define GPIO_PIN_RESET	RESET
+#define FLAG_RESET		RESET
+#define FLAG_SET		SET
+
+/*
+ * Bit position definitions for SPI peripheral
+ */
+
+/* SPI_CR1 register */
+#define SPI_CR1_CPHA        0   /*!< Clock phase */
+#define SPI_CR1_CPOL        1   /*!< Clock polarity */
+#define SPI_CR1_MSTR        2   /*!< Master selection */
+#define SPI_CR1_BR          3   /*!< Baud rate control (3 bits: BR[2:0]) */
+#define SPI_CR1_SPE         6   /*!< SPI enable */
+#define SPI_CR1_LSBFIRST    7   /*!< Frame format */
+#define SPI_CR1_SSI         8   /*!< Internal slave select */
+#define SPI_CR1_SSM         9   /*!< Software slave management */
+#define SPI_CR1_RXONLY      10  /*!< Receive only */
+#define SPI_CR1_DFF         11  /*!< Data frame format */
+#define SPI_CR1_CRCNEXT     12  /*!< CRC transfer next */
+#define SPI_CR1_CRCEN       13  /*!< Hardware CRC calculation enable */
+#define SPI_CR1_BIDIOE      14  /*!< Output enable in bidirectional mode */
+#define SPI_CR1_BIDIMODE    15  /*!< Bidirectional data mode enable */
+
+/* SPI_CR2 register */
+#define SPI_CR2_RXDMAEN     0   /*!< Rx buffer DMA enable */
+#define SPI_CR2_TXDMAEN     1   /*!< Tx buffer DMA enable */
+#define SPI_CR2_SSOE        2   /*!< SS output enable */
+#define SPI_CR2_FRF         4   /*!< Frame format */
+#define SPI_CR2_ERRIE       5   /*!< Error interrupt enable */
+#define SPI_CR2_RXNEIE      6   /*!< RX buffer not empty interrupt enable */
+#define SPI_CR2_TXEIE       7   /*!< Tx buffer empty interrupt enable */
+
+/* SPI_SR register */
+#define SPI_SR_RXNE         0   /*!< Receive buffer not empty */
+#define SPI_SR_TXE          1   /*!< Transmit buffer empty */
+#define SPI_SR_CHSIDE       2   /*!< Channel side */
+#define SPI_SR_UDR          3   /*!< Underrun flag */
+#define SPI_SR_CRCERR       4   /*!< CRC error flag */
+#define SPI_SR_MODF         5   /*!< Mode fault */
+#define SPI_SR_OVR          6   /*!< Overrun flag */
+#define SPI_SR_BSY          7   /*!< Busy flag */
+#define SPI_SR_FRE          8   /*!< Frame format error */
+
 
 #include "stm32f407xx_gpio_driver.h"
+#include "stm32f407xx_spi_driver.h"
 
 #endif /* INC_STM32F407XX_H_ */

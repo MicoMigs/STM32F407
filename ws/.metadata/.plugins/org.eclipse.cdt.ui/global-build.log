@@ -1,43 +1,13 @@
-11:02:15 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+16:59:01 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
 make -j16 all 
-arm-none-eabi-gcc "../Src/demo_03_button_interrupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/demo_03_button_interrupt.d" -MT"Src/demo_03_button_interrupt.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/demo_03_button_interrupt.o"
-arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_gpio_driver.d" -MT"Drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_gpio_driver.o"
+arm-none-eabi-gcc "../Src/demo_04_spi_tx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/demo_04_spi_tx.d" -MT"Src/demo_04_spi_tx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/demo_04_spi_tx.o"
 arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\STM32F407\ws\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: stm32f4xx_drivers.elf
  
 arm-none-eabi-size  stm32f4xx_drivers.elf 
 arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
    text	   data	    bss	    dec	    hex	filename
-   2544	      0	   1568	   4112	   1010	stm32f4xx_drivers.elf
-Finished building: default.size.stdout
- 
-Finished building: stm32f4xx_drivers.list
- 
-11:03:37 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
-make -j16 all 
-arm-none-eabi-gcc "../Src/demo_03_button_interrupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/demo_03_button_interrupt.d" -MT"Src/demo_03_button_interrupt.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/demo_03_button_interrupt.o"
-arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\STM32F407\ws\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: stm32f4xx_drivers.elf
- 
-arm-none-eabi-size  stm32f4xx_drivers.elf 
-arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
-   text	   data	    bss	    dec	    hex	filename
-   2592	      0	   1568	   4160	   1040	stm32f4xx_drivers.elf
-Finished building: default.size.stdout
- 
-Finished building: stm32f4xx_drivers.list
- 
-11:31:07 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
-make -j16 all 
-arm-none-eabi-gcc "../Src/demo_03_button_interrupt.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/demo_03_button_interrupt.d" -MT"Src/demo_03_button_interrupt.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/demo_03_button_interrupt.o"
-arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"C:/STM32F407/ws/stm32f4xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_gpio_driver.d" -MT"Drivers/Src/stm32f407xx_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_gpio_driver.o"
-arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\STM32F407\ws\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: stm32f4xx_drivers.elf
- 
-arm-none-eabi-size  stm32f4xx_drivers.elf 
-arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
-   text	   data	    bss	    dec	    hex	filename
-   2588	      0	   1568	   4156	   103c	stm32f4xx_drivers.elf
+   2728	      0	   1568	   4296	   10c8	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  
 Finished building: stm32f4xx_drivers.list
