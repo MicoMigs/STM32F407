@@ -3,6 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
+		<item value="SPI_Get"/>
+		<item value="spi_in"/>
+		<item value="ssm"/>
+		<item value="EnorDi"/>
 		<item value="gpio_op"/>
 		<item value="GPIO_PIN"/>
 		<item value="pGPIOHandle"/>
@@ -11,5 +15,8 @@
 		<item value="GPIO_PinConfig"/>
 		<item value="@GPIO_PIN_ALT_FUN_MODE"/>
 		<item value="GPIO_PIN_MODES"/>
+	</list>
+	<list key="replacehistory">
+		<item value="EnOrDi"/>
 	</list>
 </section>

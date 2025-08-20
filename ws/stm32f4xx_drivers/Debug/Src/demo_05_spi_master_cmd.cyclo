@@ -1,0 +1,6 @@
+../Src/demo_05_spi_master_cmd.c:40:6:delay	2
+../Src/demo_05_spi_master_cmd.c:53:6:SPI2_GPIOInits	1
+../Src/demo_05_spi_master_cmd.c:84:6:SPI2_Inits	1
+../Src/demo_05_spi_master_cmd.c:100:6:GPIO_ButtonInit	1
+../Src/demo_05_spi_master_cmd.c:128:9:SPI_VerifyResponse	2
+../Src/demo_05_spi_master_cmd.c:140:5:main	14

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;stm32f4xx_drivers/stm32f4xx_drivers Debug (3).launch&apos; to &apos;stm32f4xx_drivers Debug.launch&apos;" description="Rename resource &apos;stm32f4xx_drivers Debug (3).launch&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="stm32f4xx_drivers Debug (3).launch" name="stm32f4xx_drivers Debug.launch" stamp="1755663686194" updateReferences="true"/>
+</session>
